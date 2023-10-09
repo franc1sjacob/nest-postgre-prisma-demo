@@ -13,23 +13,26 @@ export class PostResolver {
     return this.postService.create(payload);
   }
 
-  @Query(() => [Post], { name: 'post' })
+  @Query(() => [Post], { name: 'findAllPost' })
   findAll() {
     return this.postService.findAll();
   }
 
-  // @Query(() => Post, { name: 'post' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.postService.findOne(id);
-  // }
+  @Query(() => Post, { name: 'findOnePost' })
+  findOne(@Args('id', { type: () => Int }) id: number) {
+    return this.postService.findOne(id);
+  }
 
-  // @Mutation(() => Post)
-  // updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
-  //   return this.postService.update(updatePostInput.id, updatePostInput);
-  // }
+  @Mutation(() => Post)
+  updatePost(
+    @Args('id') id: number,
+    @Args('updatePostInput') payload: UpdatePostInput,
+  ) {
+    return this.postService.update(id, payload);
+  }
 
-  // @Mutation(() => Post)
-  // removePost(@Args('id', { type: () => Int }) id: number) {
-  //   return this.postService.remove(id);
-  // }
+  @Mutation(() => Post)
+  removePost(@Args('id', { type: () => Int }) id: number) {
+    return this.postService.remove(id);
+  }
 }

@@ -13,19 +13,34 @@ export class PostService {
     });
   }
 
+  async update(id: number, payload: UpdatePostInput) {
+    return await this.prisma.post.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...payload,
+      },
+    });
+  }
+
   async findAll() {
     return await this.prisma.post.findMany({});
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} post`;
-  // }
+  async findOne(id: number) {
+    return await this.prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 
-  // update(id: number, updatePostInput: UpdatePostInput) {
-  //   return `This action updates a #${id} post`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} post`;
-  // }
+  async remove(id: number) {
+    return await this.prisma.post.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }
