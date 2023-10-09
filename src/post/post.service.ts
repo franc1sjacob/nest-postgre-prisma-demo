@@ -13,7 +13,7 @@ export class PostService {
     });
   }
 
-  async update(id: number, payload: UpdatePostInput) {
+  async update(id: string, payload: UpdatePostInput) {
     return await this.prisma.post.update({
       where: {
         id: id,
@@ -28,15 +28,15 @@ export class PostService {
     return await this.prisma.post.findMany({});
   }
 
-  async findOne(id: number) {
-    return await this.prisma.post.findUnique({
+  async findOne(id: string) {
+    return await this.prisma.post.findUniqueOrThrow({
       where: {
         id: id,
       },
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.prisma.post.delete({
       where: {
         id: id,

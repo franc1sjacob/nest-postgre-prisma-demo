@@ -2,6 +2,9 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient({});
 
 @Injectable()
 export class UserService {
@@ -15,7 +18,7 @@ export class UserService {
     });
   }
 
-  async update(id: number, payload: UpdateUserInput) {
+  async update(id: string, payload: UpdateUserInput) {
     return await this.prisma.user.update({
       where: {
         id: id,
@@ -26,7 +29,7 @@ export class UserService {
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.prisma.user.delete({
       where: {
         id: id,
@@ -39,7 +42,7 @@ export class UserService {
     return await this.prisma.user.findMany({});
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const user = await this.prisma.user.findUnique({
       where: {
         id: id,

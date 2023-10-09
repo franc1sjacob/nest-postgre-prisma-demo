@@ -19,20 +19,20 @@ export class PostResolver {
   }
 
   @Query(() => Post, { name: 'findOnePost' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id') id: string) {
     return this.postService.findOne(id);
   }
 
   @Mutation(() => Post)
   updatePost(
-    @Args('id') id: number,
+    @Args('id') id: string,
     @Args('updatePostInput') payload: UpdatePostInput,
   ) {
     return this.postService.update(id, payload);
   }
 
   @Mutation(() => Post)
-  removePost(@Args('id', { type: () => Int }) id: number) {
+  removePost(@Args('id') id: string) {
     return this.postService.remove(id);
   }
 }
